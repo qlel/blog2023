@@ -1,4 +1,4 @@
-baseurl: ""
+baseurl: "https://qlel.eu.org/blog2023/"
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
