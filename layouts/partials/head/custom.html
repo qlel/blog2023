@@ -1,0 +1,19 @@
+<style>
+    /* 覆盖 */
+    :root {
+        --base-font-family: "LXGW WenKai Screen", var(--sys-font-family), var(--zh-font-family), sans-serif;
+        --code-font-family: "Cascadia Mono", Menlo, Monaco, Consolas, "LXGW WenKai Screen", "Courier New", monospace;
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://npm.elemecdn.com/lxgw-wenkai-screen-webfont@1.7.0/lxgwwenkaiscreen.css";
+    
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+    
+        document.head.appendChild(customFont);
+    }());
+</script>
