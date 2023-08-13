@@ -1,15 +1,17 @@
-baseurl: "https://qlel.eu.org/blog2023/"
+baseurl: "https://qlel.eu.org/blog2023"
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
 title: qlel # 被languages的title覆盖
+copyright: Example Person
 
 languages:
     zh-cn:
         languageName: 中文
         title: qlel
-        description: 中文语言
         weight: 1
+        params:
+            description: 中文语言
 
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
@@ -34,7 +36,7 @@ params:
         - post
     featuredImageField: image
     rssFullContent: false
-    favicon: /fav.webp
+    favicon: /blog2023/fav.webp
     # e.g.: favicon placed in `static/favicon.ico` of your site folder, then set this field to `/favicon.ico` (`/` is necessary)
 
     footer:
