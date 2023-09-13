@@ -15,15 +15,7 @@ categories = [
 
 > Git 有三种状态
 
-```mermaid
-sequenceDiagram
-    participant A1 as 工作区<br> Working Directory
-    participant A2 as 暂存区<br> Staging Area
-    participant A3 as git仓库<br> Repository
-    A1->>A2:Stage Fixes 暂存
-    A2->>A3:Commit 提交
-    A3->>A1:Checkout the project 拉取
-```
+![git工作流](git_workflow.webp)
 
 - 工作区：添加、编辑、修改文件等动作
 - 暂存区：暂存已经修改的文件，最后统一提交到 git 仓库
