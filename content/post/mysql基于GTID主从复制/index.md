@@ -68,7 +68,7 @@ Debian虚拟机访问远程win10主机MySQL的`main`用户:
 ```bash
 mysql -h 192.168.56.1 -P 3306 -u qlel -p
 ```
-两主机皆克利用网关来正常访问.
+两主机皆可利用网关来正常访问.
 
 ### master主库配置
 win10安装目录有个配置文件`my.ini`, 在内容`[mysqld]`下添加配置, 配置完需要重启.
@@ -91,6 +91,7 @@ log_slave_updates=on
 binlog_format=ROW
 # 设置二进制日志的有效期限（以秒为单位）, 默认2592000, 为30天
 binlog_expire_logs_seconds=2592000
+sync_binlog=1
 ```
 重启, 以管理员身份打开powershell:
 ```powershell
@@ -178,6 +179,8 @@ mysql> show variables like '%gtid%';
 ```
 ### 保持数据一致
 备份主库需要复制的数据, 导入到从库, 必须保持数据一致.
+
+可以先设置为只读，再导出数据`SET @@GLOBAL.read_only = ON;`。
 ```bash
 # 设置了gtid, 必须加上--set-gtid-purged=OFF备份binlog
 mysqldump --set-gtid-purged=OFF -u qlel -p test1 --result-file=test1.sql
@@ -207,6 +210,24 @@ flush privileges;
 
 ### salve连接到master
 ```sql
+-- 格式
+mysql> CHANGE MASTER TO
+     >     MASTER_HOST = host,
+     >     MASTER_PORT = port,
+     >     MASTER_USER = user,
+     >     MASTER_PASSWORD = password,
+     >     MASTER_AUTO_POSITION = 1;
+
+Or from MySQL 8.0.23:
+
+mysql> CHANGE REPLICATION SOURCE TO
+     >     SOURCE_HOST = host,
+     >     SOURCE_PORT = port,
+     >     SOURCE_USER = user,
+     >     SOURCE_PASSWORD = password,
+     >     SOURCE_AUTO_POSITION = 1;
+
+-- 示例
 change master to 
 master_host='192.168.56.1', 
 master_user='main',
@@ -308,3 +329,6 @@ mysql> reset master;
 如果想彻底清除主从的机制，可以修改配置文件，删除主从相关的配置项，然后重启mysql即可。
 
 >请谨慎使用此语句，以确保您不会丢失任何想要的二进制日志文件数据和GTID执行历史记录。
+
+## 主从切换
+参考： https://blog.csdn.net/sinat_36757755/article/details/124049382
