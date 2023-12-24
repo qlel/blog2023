@@ -3,7 +3,7 @@ languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
 title: qlel # 被languages的title覆盖
-copyright: Example Person
+copyright: QLEL
 
 languages:
     zh-cn:
